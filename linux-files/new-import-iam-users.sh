@@ -213,6 +213,16 @@ function get_iam_keys() {
            >> /home/"${user}"/.ssh/authorized_keys
         done
     done
+
+    #update sshd_config file
+    if grep -q "#PubkeyAuthentication" "/etc/ssh/sshd_config"; then
+        sed -i "s:#PubkeyAuthentication no:PubkeyAuthentication yes:g" "/etc/ssh/sshd_config"
+    fi
+    if grep -q "#AuthorizedKeysFile" "/etc/ssh/sshd_config"; then
+            sed -i "s:#AuthorizedKeysFile:AuthorizedKeysFile:g" "/etc/ssh/sshd_config"
+    fi
+    #reload sshd
+    service sshd reload
 }
 
 #call key retrieval
