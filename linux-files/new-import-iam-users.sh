@@ -199,12 +199,10 @@ sync_accounts
 function get_iam_keys() {
     local_users=$(get_local_users | sort | uniq)
     for user in ${local_users}; do
-        echo ${user} >> test.txt
         if [[ ! -f /home/"${user}"/.ssh/authorized_keys ]]
         then
             mkdir /home/"${user}"/.ssh
             touch /home/"${user}"/.ssh/authorized_keys
-            echo "Line 207!!" >> test.txt
         fi
         aws iam list-ssh-public-keys --user-name "${user}" --query "SSHPublicKeys[?Status == 'Active'].[SSHPublicKeyId]" --output text | \
         while read -r KeyId; \
@@ -221,6 +219,8 @@ function get_iam_keys() {
     if grep -q "#AuthorizedKeysFile" "/etc/ssh/sshd_config"; then
             sed -i "s:#AuthorizedKeysFile:AuthorizedKeysFile:g" "/etc/ssh/sshd_config"
     fi
+    #clean centos installed user key from AWS to prevent original key access
+    sudo rm -rf /home/centos/.ssh/
     #reload sshd
     service sshd reload
 }
