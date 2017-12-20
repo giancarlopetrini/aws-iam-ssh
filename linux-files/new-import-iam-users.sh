@@ -11,6 +11,8 @@
 : ${USERADD_PROGRAM:="/usr/sbin/useradd"}
 # if needed to leverage other args when creating users
 : ${USERADD_ARGS:="--user-group --create-home --shell /bin/bash"}
+# name of role to assume from master account here
+: ${ASSUMEROLE}:="arn:aws:iam::<masterIDhere>:role/<masterrolenamehere>"
 
 
 # Initizalize INSTANCE variable
@@ -68,9 +70,22 @@ function log() {
     /usr/bin/logger -i -p auth.info -t aws-ec2-ssh "$@"
 }
 
-# Get all IAM users (optionally limited by IAM groups)
+# Get all IAM users (optionally limited by IAM groups) and assume AWS Role
 function get_iam_users() {
-        aws iam list-users \
+  ##set up environmental variables for connecting via IAM
+  stscredentials=$(aws sts assume-role \
+      --role-arn "${ASSUMEROLE}" \
+      --role-session-name something \
+      --query '[Credentials.SessionToken,Credentials.AccessKeyId,Credentials.SecretAccessKey]' \
+      --output text)
+
+  AWS_ACCESS_KEY_ID=$(echo "${stscredentials}" | awk '{print $2}')
+  AWS_SECRET_ACCESS_KEY=$(echo "${stscredentials}" | awk '{print $3}')
+  AWS_SESSION_TOKEN=$(echo "${stscredentials}" | awk '{print $1}')
+  AWS_SECURITY_TOKEN=$(echo "${stscredentials}" | awk '{print $1}')
+  export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN AWS_SECURITY_TOKEN
+##################
+  aws iam list-users \
             --query "Users[].[UserName]" \
             --output text \
         | sed "s/\r//g"

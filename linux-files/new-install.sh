@@ -18,12 +18,6 @@ AUTHORIZED_KEYS_COMMAND_FILE="/opt/aws-iam-ssh/authorized_keys_command.sh"
 IMPORT_USERS_SCRIPT_FILE="/opt/aws-iam-ssh/import_users.sh"
 MAIN_CONFIG_FILE="/etc/aws-ec2-ssh.conf"
 
-#define variabled
-$import_users = "new-import-iam-users.sh"
-$import_keys = "new-import-iam-ssh-keys.sh"
-#make scrips executable
-sudo chmod +x $import_users && sudo chmod +x $import_keys
-
 cat > /etc/cron.d/import_users << EOF
 SHELL=/bin/bash
 PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/aws/bin

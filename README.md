@@ -15,7 +15,9 @@
 3. Attach an inline, custom policy with the contents form _iam-child-policy.json_ adding the MASTER Account ID and the MASTER Role name that we just created
 4. Attach newly created _client_ role to instance
 
-#### On newly created EC2
-1. git clone https://github.com/giancarlopetrini/aws-iam-ssh.git /opt/aws-iam-ssh
-2. cd /opt/aws-iam-ssh && chmod +x new-import-iam-users.sh
-3. ./new-import-iam-users.sh
+#### On client EC2
+1. sudo git clone https://github.com/giancarlopetrini/aws-iam-ssh.git /opt/aws-iam-ssh
+2. cd /opt/aws-iam-ssh
+3. sudo chmod +x /opt/aws-iam-ssh/linux-files/new-install.sh && sudo chmod +x /opt/aws-iam-ssh/linux-files/new-import-iam-users.sh
+4. sudo ./new-install.sh
+5. sudo ./new-import-iam-users.sh
