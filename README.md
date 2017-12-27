@@ -20,7 +20,7 @@
 2. cd /opt/aws-iam-ssh/linux-files
 3. sudo chmod +x /opt/aws-iam-ssh/linux-files/new-install.sh && sudo chmod +x /opt/aws-iam-ssh/linux-files/new-import-iam-users.sh
 4. sudo ./new-install.sh
-5. reboot
-6. sudo nano new-import-iam-users.sh
+5. sudo reboot
+6. sudo nano /opt/aws-iam-ssh/linux-files/new-import-iam-users.sh
 7. change value of IAM info on Line 74, in assume role call, to accurate information, based on the hints
-8. sudo ./new-import-iam-users.sh
+8. sudo /opt/aws-iam-ssh/linux-files/./new-import-iam-users.sh
