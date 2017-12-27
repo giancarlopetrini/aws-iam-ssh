@@ -72,7 +72,7 @@ function setAWSCreds() {
   ##set up environmental variables for connecting via IAM
   stscredentials=$(aws sts assume-role \
       --role-arn arn:aws:iam::<masterIDhere>:role/<masterrolenamehere> \
-      --role-session-name something \
+      --role-session-name pullIAMKeys \
       --query '[Credentials.SessionToken,Credentials.AccessKeyId,Credentials.SecretAccessKey]' \
       --output text)
 
