@@ -1,4 +1,4 @@
-# aws-iam-ssh  
+# IAM SSH Key Managment for EC2s in AWS
 
 ## Tons of credit to Widdix => https://github.com/widdix
 
@@ -17,7 +17,10 @@
 
 #### On client EC2
 1. sudo git clone https://github.com/giancarlopetrini/aws-iam-ssh.git /opt/aws-iam-ssh
-2. cd /opt/aws-iam-ssh
+2. cd /opt/aws-iam-ssh/linux-files
 3. sudo chmod +x /opt/aws-iam-ssh/linux-files/new-install.sh && sudo chmod +x /opt/aws-iam-ssh/linux-files/new-import-iam-users.sh
 4. sudo ./new-install.sh
-5. sudo ./new-import-iam-users.sh
+5. reboot
+6. sudo nano new-import-iam-users.sh
+7. change value of IAM info on Line 75, in assumre role call, to accurate information, based on the hints
+8. sudo ./new-import-iam-users.sh

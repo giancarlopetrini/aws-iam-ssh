@@ -11,8 +11,6 @@
 : ${USERADD_PROGRAM:="/usr/sbin/useradd"}
 # if needed to leverage other args when creating users
 : ${USERADD_ARGS:="--user-group --create-home --shell /bin/bash"}
-# name of role to assume from master account here
-: ${ASSUMEROLE}:="arn:aws:iam::<masterIDhere>:role/<masterrolenamehere>"
 
 
 # Initizalize INSTANCE variable
@@ -74,7 +72,7 @@ function log() {
 function get_iam_users() {
   ##set up environmental variables for connecting via IAM
   stscredentials=$(aws sts assume-role \
-      --role-arn "${ASSUMEROLE}" \
+      --role-arn arn:aws:iam::<masterIDhere>:role/<masterrolenamehere> \
       --role-session-name something \
       --query '[Credentials.SessionToken,Credentials.AccessKeyId,Credentials.SecretAccessKey]' \
       --output text)
@@ -213,6 +211,18 @@ sync_accounts
 #filter usernames through and grab key files
 function get_iam_keys() {
     local_users=$(get_local_users | sort | uniq)
+    ##set up environmental variables for connecting via IAM
+    stscredentials=$(aws sts assume-role \
+        --role-arn arn:aws:iam::<masterIDhere>:role/<masterrolenamehere> \
+        --role-session-name something \
+        --query '[Credentials.SessionToken,Credentials.AccessKeyId,Credentials.SecretAccessKey]' \
+        --output text)
+
+    AWS_ACCESS_KEY_ID=$(echo "${stscredentials}" | awk '{print $2}')
+    AWS_SECRET_ACCESS_KEY=$(echo "${stscredentials}" | awk '{print $3}')
+    AWS_SESSION_TOKEN=$(echo "${stscredentials}" | awk '{print $1}')
+    AWS_SECURITY_TOKEN=$(echo "${stscredentials}" | awk '{print $1}')
+    export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN AWS_SECURITY_TOKEN
     for user in ${local_users}; do
         if [[ ! -f /home/"${user}"/.ssh/authorized_keys ]]
         then
@@ -234,7 +244,7 @@ function get_iam_keys() {
     if grep -q "#AuthorizedKeysFile" "/etc/ssh/sshd_config"; then
             sed -i "s:#AuthorizedKeysFile:AuthorizedKeysFile:g" "/etc/ssh/sshd_config"
     fi
-    #clean centos installed user key from AWS to prevent original key access
+    #scrub centos installed user key from AWS to prevent original key access
     sudo rm -rf /home/centos/.ssh/
     #reload sshd
     service sshd reload
