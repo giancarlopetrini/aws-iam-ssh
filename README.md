@@ -22,5 +22,5 @@
 4. sudo ./new-install.sh
 5. reboot
 6. sudo nano new-import-iam-users.sh
-7. change value of IAM info on Line 75, in assumre role call, to accurate information, based on the hints
+7. change value of IAM info on Line 74, in assume role call, to accurate information, based on the hints
 8. sudo ./new-import-iam-users.sh

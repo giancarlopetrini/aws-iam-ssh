@@ -13,10 +13,7 @@ sudo ./configure
 sudo make altinstall
 sudo pip install awscli
 
-SSHD_CONFIG_FILE="/etc/ssh/ssh_config"
-AUTHORIZED_KEYS_COMMAND_FILE="/opt/aws-iam-ssh/authorized_keys_command.sh"
-IMPORT_USERS_SCRIPT_FILE="/opt/aws-iam-ssh/import_users.sh"
-MAIN_CONFIG_FILE="/etc/aws-ec2-ssh.conf"
+IMPORT_USERS_SCRIPT_FILE="/opt/aws-iam-ssh/linux-files/new-import-iam-users.sh"
 
 cat > /etc/cron.d/import_users << EOF
 SHELL=/bin/bash
