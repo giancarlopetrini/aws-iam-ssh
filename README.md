@@ -13,7 +13,7 @@
 1. Create an IAM, EC2 role
 2. name it _iam-client-clientNameHere_
 3. Attach an inline, custom policy with the contents form _iam-child-policy.json_ adding the MASTER Account ID and the MASTER Role name that we just created
-4. Attach newly created _client_ role to instance
+4. Attach newly created _client_ role to instance. This can be done via the cli or the AWS EC2 GUI, by highlighting the instance > Instance Settings > Attach/replace IAM role > selecting newly created _client_ role
 
 #### On client EC2
 1. sudo git clone https://github.com/giancarlopetrini/aws-iam-ssh.git /opt/aws-iam-ssh
