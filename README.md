@@ -5,7 +5,7 @@
 ### A set of IAM policies and shell script for managing SSH keys centrally in AWS
 
 #### On MASTER AWS IAM account
-1. Create a role of the type "Another AWS account", pointing it at the Account ID of the child account. _There must be a unique policy for each of the child accounts._ This can be found in the my account menu when logged into the child account.
+1. Create a role of the type "Another AWS account", pointing it at the Account ID of the child account. _There must be a unique role for each of the child accounts._ This can be found in the my account menu when logged into the child account.
 2. Paste the contents of the _iam-master-policy.json_,replacing the MASTER account ID.
 3. Name the policy _iam-master-clientNameHere_
 
