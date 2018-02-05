@@ -238,7 +238,8 @@ function get_iam_keys() {
             sed -i "s:#AuthorizedKeysFile:AuthorizedKeysFile:g" "/etc/ssh/sshd_config"
     fi
     #scrub centos installed user key from AWS to prevent original key access
-    sudo rm -rf /home/centos/.ssh/
+    #TODO reimplement after testing
+    ###sudo rm -rf /home/centos/.ssh/
     #reload sshd
     service sshd reload
 }
