@@ -239,7 +239,7 @@ function get_iam_keys() {
     fi
     #scrub centos installed user key from AWS to prevent original key access
     #TODO reimplement after testing
-    ###sudo rm -rf /home/centos/.ssh/
+    sudo rm -rf /home/centos/.ssh/
     #reload sshd
     service sshd reload
 }
