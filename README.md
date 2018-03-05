@@ -16,7 +16,7 @@
 4. Attach newly created _client_ role to instance. This can be done via the cli or the AWS EC2 GUI, by highlighting the instance > Instance Settings > Attach/replace IAM role > selecting newly created _client_ role
 
 #### On client EC2
-1. sudo git clone https://github.com/giancarlopetrini/aws-iam-ssh.git /opt/aws-iam-ssh
+1. sudo git clone https://github.com/giancarlopetrini/aws-iam-ssh.git 
 2. cd /opt/aws-iam-ssh/linux-files
 3. sudo chmod +x /opt/aws-iam-ssh/linux-files/new-install.sh && sudo chmod +x /opt/aws-iam-ssh/linux-files/new-import-iam-users.sh
 4. sudo ./new-install.sh
