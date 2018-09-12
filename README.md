@@ -6,7 +6,7 @@
 
 #### On MASTER AWS IAM account
 1. Create a role of the type "Another AWS account", pointing it at the Account ID of the child account. _There must be a unique role for each of the child accounts._ This can be found in the my account menu when logged into the child account.
-2. Paste the contents of the _iam-master-policy.json_,replacing the MASTER account ID.
+2. Paste the contents of the _iam-master-policy.json_,replacing the MASTER account ID with the CHILD account ID. This .json is placed in the inline policy.
 3. Name the policy _iam-master-clientNameHere_
 
 #### On CLIENT AWS IAM account
