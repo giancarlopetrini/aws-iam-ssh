@@ -24,3 +24,9 @@
 6. sudo nano /opt/aws-iam-ssh/linux-files/new-import-iam-users.sh
 7. change value of IAM info on Line 74, in assume role call, to accurate information, based on the hints
 8. sudo /opt/aws-iam-ssh/linux-files/./new-import-iam-users.sh
+
+**_If the last command does not execute, follow the steps below_**
+1. sudo yum reinstall python-pip
+2. pip uninstall awscli
+3. pip install --upgrade --user
+4. Verify with *aws --version* 
