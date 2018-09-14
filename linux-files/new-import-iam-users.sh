@@ -72,9 +72,9 @@ function setAWSCreds() {
   ##set up environmental variables for connecting via IAM
   stscredentials=$(aws sts assume-role \
       --role-arn arn:aws:iam::<masterIDhere>:role/<masterrolenamehere> \
-      --role-session-name pullIAMKeys \
+      --role-session-name 'pullIAMKeys' \
       --query '[Credentials.SessionToken,Credentials.AccessKeyId,Credentials.SecretAccessKey]' \
-      --output text)
+      --output text\)
 
   AWS_ACCESS_KEY_ID=$(echo "${stscredentials}" | awk '{print $2}')
   AWS_SECRET_ACCESS_KEY=$(echo "${stscredentials}" | awk '{print $3}')
